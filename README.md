@@ -1,0 +1,24 @@
+# 🏥 Hospital Management System
+
+A full-stack Hospital Management System built with Spring Boot and MySQL.
+
+## 🌐 Live Demo
+[Click Here to View Live](https://hospital-management-system-production-477c.up.railway.app/login.html)
+
+## 🔑 Demo Credentials
+- Username: admin
+- Password: admin123
+
+## 🛠️ Tech Stack
+- Java Spring Boot
+- MySQL Database
+- HTML, CSS, JavaScript
+- Bootstrap 5
+- Deployed on Railway
+
+## ✨ Features
+- Admin Login & Logout
+- Patient Management (Add, Edit, Delete, Search)
+- Doctor Management (Add, Edit, Delete)
+- Appointment Management
+- Hospital Analytics Dashboard (Pie Chart)
