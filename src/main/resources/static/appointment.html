@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Appointment Booking</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    margin-top:30px;
+}
+
+.form-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+    margin-bottom:30px;
+}
+
+input{
+    width:220px;
+    padding:10px;
+    margin:10px;
+}
+
+button{
+    padding:10px 20px;
+    background:blue;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:darkblue;
+}
+
+table{
+    width:100%;
+    background:white;
+    border-collapse:collapse;
+}
+
+table, th, td{
+    border:1px solid gray;
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:blue;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="form-box">
+
+<h1>Appointment Booking</h1>
+
+<input type="hidden" id="id">
+
+<input type="text" id="patientName"
+placeholder="Enter Patient Name">
+
+<input type="text" id="doctorName"
+placeholder="Enter Doctor Name">
+
+<input type="date" id="appointmentDate">
+
+<input type="text" id="appointmentTime"
+placeholder="Enter Time">
+
+<button onclick="saveAppointment()">
+
+Book Appointment
+
+</button>
+
+<h3 id="msg"></h3>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Patient Name</th>
+<th>Doctor Name</th>
+<th>Date</th>
+<th>Time</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+async function saveAppointment(){
+
+    const appointment = {
+
+        id:document.getElementById("id").value,
+
+        patientName:
+        document.getElementById("patientName").value,
+
+        doctorName:
+        document.getElementById("doctorName").value,
+
+        appointmentDate:
+        document.getElementById("appointmentDate").value,
+
+        appointmentTime:
+        document.getElementById("appointmentTime").value
+
+    };
+
+    await fetch("http://localhost:9094/appointment/save",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(appointment)
+
+    });
+
+    document.getElementById("msg").innerHTML =
+        "Appointment Saved Successfully";
+
+    loadAppointments();
+
+    document.getElementById("id").value="";
+    document.getElementById("patientName").value="";
+    document.getElementById("doctorName").value="";
+    document.getElementById("appointmentDate").value="";
+    document.getElementById("appointmentTime").value="";
+
+}
+
+async function loadAppointments(){
+
+    const response =
+        await fetch("http://localhost:9094/appointment/all");
+
+    const data = await response.json();
+
+    let rows = "";
+
+    data.forEach((a)=>{
+
+        rows += `
+
+        <tr>
+
+        <td>${a.id}</td>
+        <td>${a.patientName}</td>
+        <td>${a.doctorName}</td>
+        <td>${a.appointmentDate}</td>
+        <td>${a.appointmentTime}</td>
+
+        <td>
+
+        <button onclick="editAppointment(
+        ${a.id},
+        '${a.patientName}',
+        '${a.doctorName}',
+        '${a.appointmentDate}',
+        '${a.appointmentTime}')"
+
+        style="background:green;color:white;
+        padding:5px 10px;border:none;border-radius:5px;">
+
+        Edit
+
+        </button>
+
+        <button onclick="deleteAppointment(${a.id})"
+
+        style="background:red;color:white;
+        padding:5px 10px;border:none;border-radius:5px;">
+
+        Delete
+
+        </button>
+
+        </td>
+
+        </tr>
+
+        `;
+
+    });
+
+    document.getElementById("tableBody").innerHTML = rows;
+
+}
+
+async function deleteAppointment(id){
+
+    await fetch(
+    "http://localhost:9094/appointment/delete/" + id,{
+
+        method:"DELETE"
+
+    });
+
+    document.getElementById("msg").innerHTML =
+        "Appointment Deleted Successfully";
+
+    loadAppointments();
+
+}
+
+function editAppointment(
+    id,
+    patientName,
+    doctorName,
+    appointmentDate,
+    appointmentTime){
+
+    document.getElementById("id").value=id;
+
+    document.getElementById("patientName").value=
+        patientName;
+
+    document.getElementById("doctorName").value=
+        doctorName;
+
+    document.getElementById("appointmentDate").value=
+        appointmentDate;
+
+    document.getElementById("appointmentTime").value=
+        appointmentTime;
+
+}
+
+loadAppointments();
+
+</script>
+
+</body>
+</html>

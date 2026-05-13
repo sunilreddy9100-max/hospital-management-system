@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+}
+
+.login-box{
+
+    width:350px;
+    margin:auto;
+    margin-top:100px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px gray;
+    text-align:center;
+
+}
+
+input{
+
+    width:90%;
+    padding:10px;
+    margin:10px;
+
+}
+
+button{
+
+    padding:10px 20px;
+    background:blue;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:darkblue;
+
+}
+
+h1{
+    color:blue;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h1>Admin Login</h1>
+
+<input type="text" id="username" placeholder="Enter Username">
+
+<input type="password" id="password" placeholder="Enter Password">
+
+<button onclick="login()">Login</button>
+
+<h3 id="msg"></h3>
+
+</div>
+
+<script>
+
+async function login(){
+
+    const admin = {
+
+        username:document.getElementById("username").value,
+
+        password:document.getElementById("password").value
+
+    };
+
+    const response = await fetch("http://localhost:9094/admin/login",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(admin)
+
+    });
+
+    const data = await response.text();
+
+    if(data === "Login Success"){
+
+        window.location.href="index.html";
+
+    }else{
+
+        document.getElementById("msg").innerHTML=
+            "Invalid Username or Password";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
