@@ -215,6 +215,9 @@ Hospital Analytics
 
 
 <script>
+    if(!localStorage.getItem("loggedIn")) {
+    window.location.href = "/login.html";
+}
 
 async function savePatient(){
 
