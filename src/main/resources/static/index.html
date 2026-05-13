@@ -232,7 +232,7 @@ async function savePatient(){
 
     };
 
-    await fetch("http://localhost:9094/patient/save",{
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/patient/save",{
 
         method:"POST",
 
@@ -262,7 +262,7 @@ async function savePatient(){
 async function loadPatients(){
 
     const response =
-    await fetch("http://localhost:9094/patient/all");
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/patient/all");
 
     const data = await response.json();
 
@@ -317,7 +317,7 @@ async function loadPatients(){
 async function loadDashboard(){
 
     const response =
-    await fetch("http://localhost:9094/dashboard/stats");
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/dashboard/stats");
 
     const data = await response.json();
 
@@ -335,7 +335,7 @@ async function loadDashboard(){
 async function deletePatient(id){
 
     await fetch(
-    "http://localhost:9094/patient/delete/" + id,{
+    "https://hospital-management-system-production-477c.up.railway.app/patient/delete/" + id,{
 
         method:"DELETE"
 
@@ -384,7 +384,7 @@ async function searchPatient(){
 
     const response =
     await fetch(
-    "http://localhost:9094/patient/search/" + name);
+    "https://hospital-management-system-production-477c.up.railway.app/patient/search/" + name);
 
     const data = await response.json();
 
@@ -441,7 +441,7 @@ let chart;
 async function loadChart(){
 
     const response =
-    await fetch("http://localhost:9094/dashboard/stats");
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/dashboard/stats");
 
     const data = await response.json();
 

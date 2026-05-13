@@ -146,7 +146,7 @@ async function saveAppointment(){
 
     };
 
-    await fetch("http://localhost:9094/appointment/save",{
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/appointment/save",{
 
         method:"POST",
 
@@ -174,7 +174,7 @@ async function saveAppointment(){
 async function loadAppointments(){
 
     const response =
-        await fetch("http://localhost:9094/appointment/all");
+        await fetch("https://hospital-management-system-production-477c.up.railway.app/appointment/all");
 
     const data = await response.json();
 
@@ -232,7 +232,7 @@ async function loadAppointments(){
 async function deleteAppointment(id){
 
     await fetch(
-    "http://localhost:9094/appointment/delete/" + id,{
+    "https://hospital-management-system-production-477c.up.railway.app/appointment/delete/" + id,{
 
         method:"DELETE"
 

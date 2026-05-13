@@ -130,7 +130,7 @@ async function saveDoctor(){
 
     };
 
-    await fetch("http://localhost:9094/doctor/save",{
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/doctor/save",{
 
         method:"POST",
 
@@ -157,7 +157,7 @@ async function saveDoctor(){
 async function loadDoctors(){
 
     const response =
-        await fetch("http://localhost:9094/doctor/all");
+        await fetch("https://hospital-management-system-production-477c.up.railway.app/doctor/all");
 
     const data = await response.json();
 
@@ -211,7 +211,7 @@ async function loadDoctors(){
 
 async function deleteDoctor(id){
 
-    await fetch("http://localhost:9094/doctor/delete/" + id,{
+    await fetch("https://hospital-management-system-production-477c.up.railway.app/doctor/delete/" + id,{
 
         method:"DELETE"
 
